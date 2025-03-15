@@ -1,0 +1,73 @@
+add-migration InitialCreate
+update-database
+
+query MenuQuery {
+  menus{
+   id
+   name
+   price
+   description
+  }
+}
+
+query SingleMenuQuery {
+  menu(menuId:5) {
+    id
+   name
+   price
+   description
+  }
+}
+
+
+mutation AddMenu($menu: MenuInputType) {
+  createMenu(menu:$Menu) {
+       id
+   name
+   price
+   description
+   
+  }
+}
+//variables
+
+{
+  "menu":{
+    "id": 6,
+    "name": "Green Tea",
+    "description": "Sugar free green tea",
+    "price": 8
+  }
+}
+
+//update
+mutation UpdateMenu($menuId:int $menu: MenuInputType) {
+  updateMenu(menuId:$menuId menu:$Menu) {
+   id
+   name
+   price
+   description
+   
+  }
+}
+//variables
+
+{
+  "menuId": 6,
+  "menu":{
+    "id": 6,
+    "name": "Green Tea",
+    "description": "Sugar free green tea",
+    "price": 8
+  }
+}
+
+// delete
+
+mutation DeleteMenu($menuId:int) {
+  deleteMenu(menuId:$menuId)
+}
+//variables
+{
+  "menuId": 5
+}
