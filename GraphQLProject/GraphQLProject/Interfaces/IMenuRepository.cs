@@ -1,13 +1,14 @@
 ﻿using GraphQLProject.Models;
+using System.Threading.Tasks;
 
 namespace GraphQLProject.Interfaces
 {
     public interface IMenuRepository
     {
-        List<Menu> GetAllMenu();
-        Menu GetMenuById(int id);
-        Menu AddMenu(Menu menu);
-        Menu UpdateMenu(int id, Menu menu);
-        void DeleteMenu(int id);
+        Task<List<Menu>> GetAllMenuAsync();
+        Task<Menu> GetMenuByIdAsync(int id);
+        Task<Menu> AddMenuAsync(Menu menu);
+        Task<Menu> UpdateMenuAsync(int id, Menu menu);
+        Task DeleteMenuAsync(int id);
     }
 }

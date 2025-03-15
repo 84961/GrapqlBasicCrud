@@ -21,19 +21,18 @@ query SingleMenuQuery {
 
 
 mutation AddMenu($menu: MenuInputType) {
-  createMenu(menu:$Menu) {
-       id
-   name
-   price
-   description
-   
+  createMenu(menu: $menu) {
+    id
+    name
+    description
+    price
   }
 }
+
 //variables
 
 {
-  "menu":{
-    "id": 6,
+  "menu": {
     "name": "Green Tea",
     "description": "Sugar free green tea",
     "price": 8
@@ -41,15 +40,15 @@ mutation AddMenu($menu: MenuInputType) {
 }
 
 //update
-mutation UpdateMenu($menuId:int $menu: MenuInputType) {
-  updateMenu(menuId:$menuId menu:$Menu) {
-   id
-   name
-   price
-   description
-   
+mutation UpdateMenu($menuId: Int, $menu: MenuInputType) {
+  updateMenu(menuId: $menuId, menu: $menu) {
+    id
+    name
+    price
+    description
   }
 }
+
 //variables
 
 {
@@ -64,9 +63,10 @@ mutation UpdateMenu($menuId:int $menu: MenuInputType) {
 
 // delete
 
-mutation DeleteMenu($menuId:int) {
-  deleteMenu(menuId:$menuId)
+mutation DeleteMenu($menuId: Int) {
+  deleteMenu(menuId: $menuId)
 }
+
 //variables
 {
   "menuId": 5

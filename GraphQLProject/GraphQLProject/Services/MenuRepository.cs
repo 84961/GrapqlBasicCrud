@@ -1,50 +1,52 @@
 ﻿using GraphQLProject.Data;
 using GraphQLProject.Interfaces;
 using GraphQLProject.Models;
-using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GraphQLProject.Services
 {
     public class MenuRepository : IMenuRepository
     {
-        private GraphQLDbContext dbContext;
+        private readonly GraphQLDbContext dbContext;
 
         public MenuRepository(GraphQLDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public Menu AddMenu(Menu menu)
+        public async Task<Menu> AddMenuAsync(Menu menu)
         {
-            dbContext.Menus.Add(menu);
-            dbContext.SaveChanges();
+            await dbContext.Menus.AddAsync(menu);
+            await dbContext.SaveChangesAsync();
             return menu;
         }
 
-        public void DeleteMenu(int id)
+        public async Task DeleteMenuAsync(int id)
         {
-            var menuResult = dbContext.Menus.Find(id);
+            var menuResult = await dbContext.Menus.FindAsync(id);
             dbContext.Menus.Remove(menuResult);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
         }
 
-        public List<Menu> GetAllMenu()
+        public async Task<List<Menu>> GetAllMenuAsync()
         {
-            return dbContext.Menus.ToList();
+            return await dbContext.Menus.ToListAsync();
         }
 
-        public Menu GetMenuById(int id)
+        public async Task<Menu> GetMenuByIdAsync(int id)
         {
-            return dbContext.Menus.Find(id);
+            return await dbContext.Menus.FindAsync(id);
         }
 
-        public Menu UpdateMenu(int id, Menu menu)
+        public async Task<Menu> UpdateMenuAsync(int id, Menu menu)
         {
-            var menuResult = dbContext.Menus.Find(id);
+            var menuResult = await dbContext.Menus.FindAsync(id);
             menuResult.Name = menu.Name;
             menuResult.Description = menu.Description;
             menuResult.Price = menu.Price;
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return menu;
         }
     }

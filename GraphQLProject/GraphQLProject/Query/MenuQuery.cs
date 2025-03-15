@@ -9,15 +9,18 @@ namespace GraphQLProject.Query
     {
         public MenuQuery(IMenuRepository menuRepository)
         {
-            Field<ListGraphType<MenuType>>("Menus").Resolve(context =>
-            {
-                return menuRepository.GetAllMenu();
-            });
+            Field<ListGraphType<MenuType>>("Menus")
+                .ResolveAsync(async context =>
+                {
+                    return await menuRepository.GetAllMenuAsync();
+                });
 
-            Field<MenuType>("Menu").Arguments(new QueryArguments(new QueryArgument<IntGraphType> { Name = "menuId"})).Resolve(context =>
-            {
-                return menuRepository.GetMenuById(context.GetArgument<int>("menuId"));
-            });
+            Field<MenuType>("Menu")
+                .Arguments(new QueryArgument<IntGraphType> { Name = "menuId" })
+                .ResolveAsync(async context =>
+                {
+                    return await menuRepository.GetMenuByIdAsync(context.GetArgument<int>("menuId"));
+                });
         }
     }
 }
